@@ -1,0 +1,5 @@
+.gridContainer {
+  @apply grid w-full aspect-video border border-black;
+  grid-template-columns: repeat(11, 1fr);
+  grid-template-rows: repeat(11, 1fr);
+}

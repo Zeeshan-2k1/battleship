@@ -1,0 +1,7 @@
+.modal {
+  @apply z-50 m-auto p-12 rounded-xl flex flex-col items-center bg-white text-center border border-black;
+}
+
+.backdrop {
+  @apply z-[51] fixed top-0 left-0 h-full w-full bg-[#efecece1] flex justify-center items-center overflow-hidden;
+}

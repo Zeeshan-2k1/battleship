@@ -1,0 +1,14 @@
+.gridContainer {
+  @apply grid aspect-square border border-black;
+  grid-template-columns: repeat(11, 1fr);
+  grid-template-rows: repeat(11, 1fr);
+}
+
+.gridContainer > div {
+  @apply aspect-square;
+}
+
+.gridContainer > div:nth-child(even) {
+  background-color: black;
+  color: white;
+}

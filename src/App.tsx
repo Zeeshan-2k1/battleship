@@ -1,25 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Home from './pages/home';
+import GameScreen from './pages/game';
+import Rules from './pages/rules';
+import Settings from './pages/settings';
+import Dashboard from './pages/dashboard';
+
+import 'react-simple-toasts/dist/theme/dark.css';
+import { toastConfig } from 'react-simple-toasts';
+
+toastConfig({
+  theme: 'dark',
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main className="app">
+      <GameScreen />
+      <Home />
+      <Rules />
+      <Settings />
+      <Dashboard />
+    </main>
   );
 }
 

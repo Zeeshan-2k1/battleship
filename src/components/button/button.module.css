@@ -1,0 +1,37 @@
+.button {
+  @apply bg-white text-black text-xl hover:scale-110;
+  box-shadow: 4px 4px black;
+  outline: none;
+  border: 1px solid black;
+  transition: all 200ms ease-in-out;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  box-shadow: 2px 2px grey;
+  @apply scale-100;
+}
+
+.circle {
+  @apply rounded-full p-4 border border-black relative;
+}
+
+.circle:hover {
+  box-shadow: 0 0 5px #0f0f0f;
+}
+
+.circle::after {
+  @apply px-2 py-1 absolute right-[115%] text-sm top-[50%] -translate-y-1/2 border border-black rounded-lg hidden w-0;
+  content: attr(data-after-content);
+  transition: all 200ms ease-in-out;
+}
+
+.circle:hover::after {
+  @apply block w-max;
+}
+
+.circle:disabled {
+  cursor: not-allowed;
+  box-shadow: 2px 2px grey;
+  @apply scale-100;
+}
