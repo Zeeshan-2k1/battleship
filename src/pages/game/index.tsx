@@ -37,7 +37,7 @@ import {
 
 import { useGameSocket } from 'hooks/socket';
 
-const GameScreen = () => {
+function GameScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const ships = useShipsStateSelector();
   const { shipPositions, attackPositions } = usePositionStateSelector();
@@ -56,15 +56,11 @@ const GameScreen = () => {
         <motion.div className="absolute top-1/2 -translate-y-1/2 left-6 flex gap-8 items-start tra">
           <GridContainer onClick={attack} indexes={attackPositions} />
           <div className="flex flex-col justify-between gap-4">
-            <GridContainer
-              isAttackGrid={true}
-              indexes={shipPositions}
-              variant="sm"
-            />
-            <motion.div className={`border border-black`}>
+            <GridContainer isAttackGrid indexes={shipPositions} variant="sm" />
+            <motion.div className="border border-black">
               {Object.values(ships).map((ship) => {
-                const name = ship.name;
-                const color = SHIPS[name].color;
+                const { name } = ship;
+                const { color } = SHIPS[name];
                 return (
                   <div
                     className="flex justify-between items-center gap-2 p-2"
@@ -74,21 +70,19 @@ const GameScreen = () => {
                       <span
                         className="h-3 w-3 rounded-full"
                         style={{ backgroundColor: color }}
-                      ></span>
+                      />
                       <h4>{name}</h4>
                     </div>
                     <div className="flex gap-1">
                       {Array(ship.health)
                         .fill(0)
-                        .map((x, index) => {
-                          return (
-                            <div
-                              className="w-3 h-3 rounded-full"
-                              style={{ backgroundColor: color }}
-                              key={index}
-                            ></div>
-                          );
-                        })}
+                        .map((x, index) => (
+                          <div
+                            className="w-3 h-3 rounded-full"
+                            style={{ backgroundColor: color }}
+                            key={index}
+                          />
+                        ))}
                     </div>
                   </div>
                 );
@@ -157,6 +151,6 @@ const GameScreen = () => {
       </ModalContainer>
     </>
   );
-};
+}
 
 export default GameScreen;

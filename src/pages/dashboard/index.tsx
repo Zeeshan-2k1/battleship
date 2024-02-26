@@ -4,7 +4,7 @@ import Wrapper from 'components/wrapper';
 
 import { EPage } from 'utils/constants';
 
-const Dashboard = () => {
+function Dashboard(): JSX.Element {
   return (
     <Wrapper selectedPage={EPage.DASHBOARD} toGo="left">
       <motion.div>
@@ -13,6 +13,6 @@ const Dashboard = () => {
       </motion.div>
     </Wrapper>
   );
-};
+}
 
 export default Dashboard;

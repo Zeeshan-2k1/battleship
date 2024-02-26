@@ -44,10 +44,10 @@ const initialState: { [name: string]: TShipDetails } = {
 
 export const shipStateSlice = createSlice({
   name: 'shipState',
-  initialState: initialState,
+  initialState,
   reducers: {
     damage: (state, action: { payload: string }) => {
-      const payload = action.payload;
+      const { payload } = action;
       if (state[payload].health === 0) return;
       state[payload] = {
         ...state[payload],
@@ -56,12 +56,13 @@ export const shipStateSlice = createSlice({
     },
     build: (
       state,
-      action: { payload: { index: { i: number; j: number }[]; name: string } }
+      action: { payload: { index: { i: number; j: number }[]; name: string } },
     ) => {
-      const name = action.payload.name;
-      const positions = action.payload.index.map((item) => {
-        return { ...item, color: SHIPS[name].color };
-      });
+      const { name } = action.payload;
+      const positions = action.payload.index.map((item) => ({
+        ...item,
+        color: SHIPS[name].color,
+      }));
 
       if (state[name].index.length > SHIPS[name].shots) return;
       state[name] = {

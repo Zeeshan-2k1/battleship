@@ -1,4 +1,4 @@
-import { io } from 'socket.io-client';
+import { Socket, io } from 'socket.io-client';
 
 export const SERVER_URL =
   process.env.REACT_APP_SERVER_URL ?? 'http://localhost:3333';
@@ -9,7 +9,7 @@ export const socketBuilder = ({
 }: {
   roomId: string;
   playerName: string;
-}) => {
+}): Socket | null => {
   if (roomId && playerName) {
     return io(SERVER_URL, {
       autoConnect: false,

@@ -1,5 +1,5 @@
-export const SUBTITLE: string =
-  'March to Mayhem: Unleash Tactical Havoc in the Most Epic Online War Game Blitz!';
+export const SUBTITLE: string = `March to Mayhem: Unleash Tactical Havoc 
+  in the Most Epic Online War Game Blitz!`;
 export const TITLE: string = 'BattleShip';
 
 export const WON_TITLE: string = 'Congrats! You Won';
@@ -28,7 +28,7 @@ export const SHIPS = {
 
 export const TOTAL_OCCUPIED_GRIDS = Object.values(SHIPS).reduce(
   (a, b) => a + b.shots,
-  0
+  0,
 );
 
 export enum EPage {
