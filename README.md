@@ -1,46 +1,53 @@
-# Getting Started with Create React App
+# Battleship
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Battleship is a web-based replica of the classic board game where players engage in real-time battles against each other. It's a 2-player game where participants strategically place their ships, namely Carrier, Battleship, Cruiser, Submarine, and Destroyer, each with varying health levels. The objective is to sink all the opponent's ships before they sink yours.
 
-## Available Scripts
+## Battleship Rule Set
 
-In the project directory, you can run:
+Battleship is a classic board game adapted into a web-based, real-time 2-player game. The following rule set outlines the gameplay mechanics and guidelines for Battleship:
 
-### `npm start`
+### Objective:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- The objective of Battleship is to sink all of your opponent's ships before they sink yours.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Game Setup:
 
-### `npm test`
+1. **Ships** : Each player has the following ships:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Carrier (5 squares)
+- Battleship (4 squares)
+- Cruiser (3 squares)
+- Submarine (3 squares)
+- Destroyer (2 squares)
 
-### `npm run build`
+1. **Board** : The game is played on a 11x11 grid.
+2. **Placement** : Players take turns placing their ships on their respective boards without overlapping or extending beyond the boundaries of the grid.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Gameplay:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. **Turns** : Players take alternate turns to attack each other's ships.
+2. **Attacks** : On each turn, a player selects a square on the opponent's grid to attack. The opponent must announce whether the attack is a hit or a miss.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- If the attack hits a ship, the player marks the square as a hit.
+- If the attack misses all ships, the player marks the square as a miss.
 
-### `npm run eject`
+1. **Sinking Ships** : When all squares of a ship are hit, the ship is considered sunk.
+2. **Announcing Hits and Misses** : Players must announce whether an attack hits or misses the opponent's ships to maintain fair gameplay.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Winning the Game:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- The game continues until one player successfully sinks all of their opponent's ships.
+- The player who sinks all of their opponent's ships first is declared the winner.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### End of Game:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Once a winner is determined, the game concludes, and players can start a new game if desired.
 
-## Learn More
+### Rule Enforcement:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Players must adhere to the rules outlined above to maintain fair gameplay.
+- Any violations or disputes should be resolved amicably between the players.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Have Fun!
+
+Battleship is a game of strategy, skill, and anticipation. Enjoy the challenge of outsmarting your opponent and sinking their ships while protecting your own. May the best strategist win!
