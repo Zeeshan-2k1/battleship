@@ -1,26 +1,32 @@
 export const transition = { type: 'spring', duration: 0.8 };
 export type TSlideAnimationDirection = 'left' | 'up' | 'down' | 'right';
-export const slideAnimation = (direction: TSlideAnimationDirection) => {
-  return {
-    initial: {
-      x: direction === 'left' ? '-110%' : direction === 'right' ? '110%' : 0,
-      y: direction === 'up' ? '110%' : direction === 'down' ? '-110%' : 0,
-      opacity: 0,
-      transition: { ...transition, delay: 0.5 },
-    },
-    animate: {
-      x: 0,
-      y: 0,
-      opacity: 1,
-      transition: { ...transition, delay: 0 },
-    },
-    exit: {
-      x: direction === 'left' ? '-110%' : direction === 'right' ? '110%' : 0,
-      y: direction === 'up' ? '110%' : direction === 'down' ? '-110%' : 0,
-      transition: { ...transition, delay: 0 },
-    },
-  };
+export type slideAnimationResult = {
+  initial: any;
+  animate: any;
+  exit: any;
 };
+
+export const slideAnimation = (
+  direction: TSlideAnimationDirection,
+): slideAnimationResult => ({
+  initial: {
+    x: direction === 'left' ? '-110%' : direction === 'right' ? '110%' : 0,
+    y: direction === 'up' ? '110%' : direction === 'down' ? '-110%' : 0,
+    opacity: 0,
+    transition: { ...transition, delay: 0.5 },
+  },
+  animate: {
+    x: 0,
+    y: 0,
+    opacity: 1,
+    transition: { ...transition, delay: 0 },
+  },
+  exit: {
+    x: direction === 'left' ? '-110%' : direction === 'right' ? '110%' : 0,
+    y: direction === 'up' ? '110%' : direction === 'down' ? '-110%' : 0,
+    transition: { ...transition, delay: 0 },
+  },
+});
 
 export const dropIn = {
   hidden: {

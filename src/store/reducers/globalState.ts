@@ -26,7 +26,7 @@ const initialState: TInitialState = {
 
 export const globalStateSlice = createSlice({
   name: 'globalState',
-  initialState: initialState,
+  initialState,
   reducers: {
     switchToHome: (state) => {
       state.toGo = state.toGo === 'left' ? 'right' : 'left';

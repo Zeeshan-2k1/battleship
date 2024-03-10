@@ -1,7 +1,5 @@
-import React from 'react';
-import styles from './grid.module.css';
-
 import { GRID_SIZE } from 'utils/constants';
+import styles from './grid.module.css';
 
 interface IGridContainerProps {
   indexes: { i: number; j: number; color: string }[];
@@ -9,24 +7,24 @@ interface IGridContainerProps {
   onClick?: (data: any) => any;
   isAttackGrid?: boolean;
 }
-const GridContainer: React.FC<IGridContainerProps> = ({
+function GridContainer({
   indexes,
   variant = 'md',
-  onClick,
-  isAttackGrid,
-}) => {
+  onClick = () => null,
+  isAttackGrid = false,
+}: IGridContainerProps): JSX.Element {
   const width =
     variant === 'md'
       ? 'min-w-[68px]'
       : variant === 'lg'
-      ? 'min-w-16'
-      : 'min-w-10';
+        ? 'min-w-16'
+        : 'min-w-10';
   return (
     <div className={`${styles.gridContainer}`}>
       {Array(GRID_SIZE)
         .fill(Array(GRID_SIZE).fill(''))
-        .map((arr, iIndex) => {
-          return arr.map((_: any, jIndex: number) => {
+        .map((arr, iIndex) =>
+          arr.map((_: any, jIndex: number) => {
             let color;
             indexes.forEach((value) => {
               if (value.i === iIndex && value.j === jIndex) color = value.color;
@@ -36,8 +34,8 @@ const GridContainer: React.FC<IGridContainerProps> = ({
                 <div
                   style={{ background: color }}
                   className={`flex justify-center items-center ${width}`}
-                  key={iIndex + '' + jIndex}
-                ></div>
+                  key={`${iIndex}${jIndex}`}
+                />
               );
 
             return (
@@ -45,18 +43,22 @@ const GridContainer: React.FC<IGridContainerProps> = ({
                 className={`flex justify-center items-center ${width} ${
                   isAttackGrid ? 'hover:scale-105' : ''
                 }`}
-                key={iIndex + '' + jIndex}
+                key={`${iIndex}${jIndex}`}
                 onClick={() => {
                   if (onClick) {
                     onClick({ i: iIndex, j: jIndex });
                   }
                 }}
-              ></div>
+                role="button"
+                aria-label="Attack"
+                tabIndex={iIndex * 10 + jIndex}
+                onKeyDown={() => null}
+              />
             );
-          });
-        })}
+          }),
+        )}
     </div>
   );
-};
+}
 
 export default GridContainer;

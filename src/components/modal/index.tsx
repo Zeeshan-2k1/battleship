@@ -8,11 +8,12 @@ interface IModalContainer {
   classNames?: string;
   isModelOpen: boolean;
 }
-const ModalContainer: React.FC<IModalContainer> = ({
+
+function ModalContainer({
   children,
   classNames = '',
   isModelOpen = false,
-}) => {
+}: IModalContainer): JSX.Element {
   return (
     <AnimatePresence initial={false} mode="wait">
       {isModelOpen && (
@@ -36,6 +37,6 @@ const ModalContainer: React.FC<IModalContainer> = ({
       )}
     </AnimatePresence>
   );
-};
+}
 
 export default ModalContainer;

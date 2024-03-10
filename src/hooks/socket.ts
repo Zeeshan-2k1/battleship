@@ -2,7 +2,6 @@ import { useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import toast from 'react-simple-toasts';
 
-import { useGlobalStateSelector, usePositionStateSelector } from '.';
 import { ISocketContextType, SocketContext } from 'context/SocketContext';
 
 import { addAttackPosition, savePosition } from 'store/reducers/positionState';
@@ -10,14 +9,25 @@ import { closeShipSelectorModal } from 'store/reducers/globalState';
 
 import { IAcknowledgement, SOCKET_EVENTS, TCoodrinates } from 'utils/constants';
 import { getShipNameByColor } from 'utils/helper/shipHelper';
+import { useGlobalStateSelector, usePositionStateSelector } from '.';
 
-export const useGameSocket = () => {
+type TAttackParam = {
+  i: number;
+  j: number;
+};
+
+type TGameSocketHook = {
+  buildFleet: () => void;
+  attack: (args: TAttackParam) => void;
+};
+
+export const useGameSocket = (): TGameSocketHook => {
   const { socket } = useContext(SocketContext) as ISocketContextType;
   const dispatch = useDispatch();
   const { shipPositions } = usePositionStateSelector();
   const { isMyTurn } = useGlobalStateSelector();
 
-  const buildFleet = () => {
+  const buildFleet = (): void => {
     if (shipPositions?.length) {
       socket?.emit(
         SOCKET_EVENTS.SET_SHIP_POSITION,
@@ -37,7 +47,7 @@ export const useGameSocket = () => {
     }
   };
 
-  const attack = ({ i, j }: { i: number; j: number }) => {
+  const attack = ({ i, j }: TAttackParam): void => {
     if (!isMyTurn) {
       toast('Getting your ammunition ready. Please wait.');
       return;

@@ -6,19 +6,19 @@ import { closeBattleInfo } from 'store/reducers/globalState';
 
 import { ISocketContextType, SocketContext } from 'context/SocketContext';
 
-import styles from './styles.module.css';
 import toast from 'react-simple-toasts';
+import styles from './styles.module.css';
 
-const BattleInfo = () => {
+function BattleInfo(): JSX.Element {
   const { roomId } = useContext(SocketContext) as ISocketContextType;
   const [copied, setCopied] = useState<boolean>(false);
   const dispatch = useDispatch();
 
-  const handleCopyRoom = () => {
+  const handleCopyRoom = (): void => {
     if (copied) return;
     navigator.clipboard
       .writeText(roomId)
-      .then((res) => {
+      .then(() => {
         setCopied(true);
         toast('Copied to clipboard');
         setTimeout(() => setCopied(false), 3000);
@@ -35,7 +35,18 @@ const BattleInfo = () => {
         <h3 className="text-xl">Room Id:</h3>
         <div className="flex flex-nowrap items-center gap-2 text-xl text-slate-700 font-mono">
           <span className="font-mono">{roomId}</span>
-          <div onClick={handleCopyRoom} className="relative">
+          <div
+            role="button"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                handleCopyRoom();
+              }
+            }}
+            aria-label="Copy Room Id"
+            tabIndex={0}
+            onClick={handleCopyRoom}
+            className="relative"
+          >
             <div data-after-content="Copy Room Id" className={styles.info}>
               <IoCopyOutline className="cursor-pointer" />
             </div>
@@ -46,9 +57,9 @@ const BattleInfo = () => {
         onClick={() => dispatch(closeBattleInfo())}
         size={24}
         className="absolute top-[-30%] right-[-10%] cursor-pointer"
-      ></IoClose>
+      />
     </div>
   );
-};
+}
 
 export default BattleInfo;

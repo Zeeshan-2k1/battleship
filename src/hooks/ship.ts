@@ -1,5 +1,4 @@
 import toast from 'react-simple-toasts';
-import { useAppDispatch, usePositionStateSelector } from '.';
 
 import {
   addShipPosition,
@@ -16,45 +15,30 @@ import {
   vertical,
 } from 'utils/constants';
 import { calculateIndices } from 'utils/helper/calc';
+import { useAppDispatch, usePositionStateSelector } from '.';
 
-export const useShipPosition = () => {
-  const { shipPositions } = usePositionStateSelector();
-  const dispatch = useAppDispatch();
-
-  const setShipPosition = (
+type TShipPositionHook = {
+  setShipPosition: (
     name: string,
     position: TCoodrinates,
     align: string,
     callback?: () => void,
-  ) => {
-    const { i, j } = position;
-    const positions: TCoodrinates[] = calculateIndices(
-      i,
-      j,
-      align,
-      SHIPS[name].color,
-      SHIPS[name].shots,
-    );
-    const indices = positions.map((value) => {
-      return { i: value.i, j: value.j };
-    });
-    if (!checkShipPosition(indices, name)) return;
-    dispatch(addShipPosition(positions));
-    dispatch(
-      build({
-        index: positions.map((value) => {
-          return { i: value.i, j: value.j };
-        }),
-        name,
-      }),
-    );
-    if (callback) callback();
-  };
+  ) => void;
+  checkShipPosition: (
+    postion: { i: number; j: number }[],
+    name: string,
+  ) => void;
+  generateShipPosition: () => void;
+};
 
-  const checkShipPosition: (
+export const useShipPosition = (): TShipPositionHook => {
+  const { shipPositions } = usePositionStateSelector();
+  const dispatch = useAppDispatch();
+
+  const checkShipPosition = (
     positions: { i: number; j: number }[],
     name: string,
-  ) => boolean = (positions, name) => {
+  ): boolean => {
     const COLOR = SHIPS[name].color;
     const shipAlreadyExists = shipPositions.find((x) => x.color === COLOR);
     const validPosition = positions.every(
@@ -72,7 +56,8 @@ export const useShipPosition = () => {
       dispatch(removeShipPositions(SHIPS[name].color));
       dispatch(reset(name));
       return true;
-    } else if (validPosition) {
+    }
+    if (validPosition) {
       return true;
     }
 
@@ -82,20 +67,23 @@ export const useShipPosition = () => {
     return false;
   };
 
-  const generateShipPosition = () => {
-    let shipPositions: TCoodrinates[] = [];
+  const generateShipPosition = (): void => {
+    let allShipPositions: TCoodrinates[] = [];
 
     dispatch(deleteAllShipPostions());
     dispatch(resetAll());
 
-    const checkPositions = (positions: TCoodrinates[], color: string) =>
+    const checkPositions = (
+      positions: TCoodrinates[],
+      color: string,
+    ): boolean =>
       positions.every(
         (x) =>
           x.i >= 0 &&
           x.i < GRID_SIZE &&
           x.j >= 0 &&
           x.j < GRID_SIZE &&
-          shipPositions.find(
+          allShipPositions.find(
             (y) => y.i === x.i && y.j === x.j && y.color !== color,
           ) === undefined,
       );
@@ -107,8 +95,8 @@ export const useShipPosition = () => {
         const random = Math.random();
         const alignment: string = random > 0.5 ? horizontal : vertical;
 
-        let i = 0,
-          j = 0;
+        let i = 0;
+        let j = 0;
         if (alignment === horizontal) {
           j = Math.floor(random * (GRID_SIZE - ship.shots));
           i = Math.floor(random * GRID_SIZE);
@@ -124,15 +112,39 @@ export const useShipPosition = () => {
         dispatch(addShipPosition(positions));
         dispatch(
           build({
-            index: positions.map((value) => {
-              return { i: value.i, j: value.j };
-            }),
+            index: positions.map((value) => ({ i: value.i, j: value.j })),
             name: ship.name,
           }),
         );
-        shipPositions = [...shipPositions, ...positions];
+        allShipPositions = [...allShipPositions, ...positions];
       }
     });
+  };
+
+  const setShipPosition = (
+    name: string,
+    position: TCoodrinates,
+    align: string,
+    callback?: () => void,
+  ): void => {
+    const { i, j } = position;
+    const positions: TCoodrinates[] = calculateIndices(
+      i,
+      j,
+      align,
+      SHIPS[name].color,
+      SHIPS[name].shots,
+    );
+    const indices = positions.map((value) => ({ i: value.i, j: value.j }));
+    if (!checkShipPosition(indices, name)) return;
+    dispatch(addShipPosition(positions));
+    dispatch(
+      build({
+        index: positions.map((value) => ({ i: value.i, j: value.j })),
+        name,
+      }),
+    );
+    if (callback) callback();
   };
 
   return { setShipPosition, checkShipPosition, generateShipPosition };

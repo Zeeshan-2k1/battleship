@@ -9,7 +9,7 @@ import { switchToHome } from 'store/reducers/globalState';
 
 import { EPage } from 'utils/constants';
 
-const Rules = () => {
+function Rules(): JSX.Element {
   const dispatch = useAppDispatch();
 
   return (
@@ -24,6 +24,6 @@ const Rules = () => {
       </motion.div>
     </Wrapper>
   );
-};
+}
 
 export default Rules;

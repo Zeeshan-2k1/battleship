@@ -24,18 +24,18 @@ import Button from 'components/button';
 
 import { ISocketContextType, SocketContext } from 'context/SocketContext';
 
-const Home = () => {
+function Home(): JSX.Element {
   const dispatch = useAppDispatch();
   const { toGo, isJoinGameModalOpen } = useGlobalStateSelector();
   const { playerName, roomId, setPlayerName, setRoomId, socket } = useContext(
-    SocketContext
+    SocketContext,
   ) as ISocketContextType;
 
-  const handleStartGame = () => {
+  const handleStartGame = (): void => {
     dispatch(openJoinGameModal());
   };
 
-  const handleJoinGame = () => {
+  const handleJoinGame = (): void => {
     socket?.connect();
   };
 
@@ -49,7 +49,7 @@ const Home = () => {
     });
   }, [socket, dispatch]);
 
-  const generateRoomId = () => {
+  const generateRoomId = (): void => {
     setRoomId(generate({ exactly: 2, maxLength: 4, minLength: 4 }).join('-'));
   };
 
@@ -119,6 +119,12 @@ const Home = () => {
                 onChange={({ target }) => setRoomId(target.value)}
               />
               <div
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') generateRoomId();
+                }}
+                aria-label="Generate Room Id"
+                role="button"
+                tabIndex={0}
                 onClick={generateRoomId}
                 className="border border-black text-center p-1 px-2 flex justify-center items-center cursor-pointer"
               >
@@ -138,6 +144,6 @@ const Home = () => {
       </ModalContainer>
     </>
   );
-};
+}
 
 export default Home;

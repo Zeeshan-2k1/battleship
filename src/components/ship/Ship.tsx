@@ -1,7 +1,5 @@
-import React from 'react';
-
-const Ship = () => {
+function Ship(): JSX.Element {
   return <div>Ship</div>;
-};
+}
 
 export default Ship;

@@ -2,20 +2,22 @@ import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
 import { TSlideAnimationDirection, slideAnimation } from 'utils/helper/motion';
 import { EPage } from 'utils/constants';
-import { useGlobalStateSelector } from '../../hooks';
+import { useGlobalStateSelector } from 'hooks';
 
 interface IWrapper {
   children: React.ReactNode;
   toGo: TSlideAnimationDirection;
   selectedPage: EPage;
 }
-const Wrapper: React.FC<IWrapper> = ({ children, toGo, selectedPage }) => {
+function Wrapper({ children, toGo, selectedPage }: IWrapper): JSX.Element {
   const { page } = useGlobalStateSelector();
   return (
     <AnimatePresence>
       {page === selectedPage && (
         <motion.section
-          {...slideAnimation(toGo)}
+          initial={slideAnimation(toGo).initial}
+          animate={slideAnimation(toGo).animate}
+          exit={slideAnimation(toGo).exit}
           className="page-layout relative"
         >
           {children}
@@ -23,6 +25,6 @@ const Wrapper: React.FC<IWrapper> = ({ children, toGo, selectedPage }) => {
       )}
     </AnimatePresence>
   );
-};
+}
 
 export default Wrapper;

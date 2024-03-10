@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useMemo, useState } from 'react';
 import toast from 'react-simple-toasts';
 import { Socket } from 'socket.io-client';
 import { useDispatch } from 'react-redux';
@@ -30,9 +30,11 @@ export interface ISocketContextType {
 
 export const SocketContext = createContext<ISocketContextType | null>(null);
 
-export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({
+export function SocketProvider({
   children,
-}) => {
+}: {
+  children: React.ReactNode;
+}): JSX.Element {
   const dispatch = useDispatch();
   const savedPlayerName = window.localStorage.getItem(LS_PLAYER_NAME_KEY);
   const savedRoomId = window.localStorage.getItem(LS_ROOM_KEY);
@@ -92,17 +94,12 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({
     };
   }, [socket, dispatch]);
 
-  return (
-    <SocketContext.Provider
-      value={{
-        playerName,
-        roomId,
-        socket,
-        setPlayerName,
-        setRoomId,
-      }}
-    >
-      {children}
-    </SocketContext.Provider>
+  const value: ISocketContextType = useMemo(
+    () => ({ playerName, roomId, socket, setPlayerName, setRoomId }),
+    [playerName, roomId, socket, setPlayerName, setRoomId],
   );
-};
+
+  return (
+    <SocketContext.Provider value={value}>{children}</SocketContext.Provider>
+  );
+}
