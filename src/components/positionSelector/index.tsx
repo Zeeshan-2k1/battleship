@@ -22,6 +22,7 @@ import { useGameSocket } from 'hooks/socket';
 
 const PositionSelectorContainer = () => {
   const { shipPositions } = usePositionStateSelector();
+  const { generateShipPosition } = useShipPosition();
   const dispatch = useAppDispatch();
   const { buildFleet } = useGameSocket();
 
@@ -43,6 +44,9 @@ const PositionSelectorContainer = () => {
         </div>
       </div>
       <div className="flex items-center justify-center gap-6">
+        <Button customClassName="mt-6" onClick={generateShipPosition}>
+          Auto-Gen
+        </Button>
         <Button customClassName="mt-6" onClick={buildFleet}>
           Save
         </Button>
@@ -60,13 +64,13 @@ const PositionSelectorContainer = () => {
 const PositionSelector = ({ name }: { name: string }) => {
   const shipState = useShipsStateSelector();
   const [rowName, setRowName] = useState<string>(
-    `${shipState[name]?.index[0]?.i}` ?? ''
+    `${shipState[name]?.index[0]?.i}` ?? '',
   );
   const [colName, setColName] = useState<string>(
-    `${shipState[name]?.index[0]?.j}` ?? ''
+    `${shipState[name]?.index[0]?.j}` ?? '',
   );
   const [align, setAlign] = useState<string>(
-    getShipOrientation(shipState[name]?.index)
+    getShipOrientation(shipState[name]?.index),
   );
   const { setShipPosition } = useShipPosition();
 

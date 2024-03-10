@@ -56,7 +56,7 @@ export const shipStateSlice = createSlice({
     },
     build: (
       state,
-      action: { payload: { index: { i: number; j: number }[]; name: string } }
+      action: { payload: { index: { i: number; j: number }[]; name: string } },
     ) => {
       const name = action.payload.name;
       const positions = action.payload.index.map((item) => {
@@ -87,8 +87,12 @@ export const shipStateSlice = createSlice({
         };
       }
     },
+    resetAll: (state) => {
+      state = initialState;
+    },
   },
 });
 
-export const { damage, build, destroy, reset } = shipStateSlice.actions;
+export const { damage, build, destroy, reset, resetAll } =
+  shipStateSlice.actions;
 export default shipStateSlice.reducer;

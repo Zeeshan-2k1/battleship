@@ -18,19 +18,23 @@ export const useGameSocket = () => {
   const { isMyTurn } = useGlobalStateSelector();
 
   const buildFleet = () => {
-    socket?.emit(
-      SOCKET_EVENTS.SET_SHIP_POSITION,
-      shipPositions,
-      (res: IAcknowledgement) => {
-        if (res.isSuccess) {
-          dispatch(savePosition());
-          dispatch(closeShipSelectorModal());
-          toast('Your fleet is ready.');
-        } else {
-          toast(res?.message ?? "Couldn't set ship positions.");
-        }
-      }
-    );
+    if (shipPositions?.length) {
+      socket?.emit(
+        SOCKET_EVENTS.SET_SHIP_POSITION,
+        shipPositions,
+        (res: IAcknowledgement) => {
+          if (res.isSuccess) {
+            dispatch(savePosition());
+            dispatch(closeShipSelectorModal());
+            toast('Your fleet is ready.');
+          } else {
+            toast(res?.message ?? "Couldn't set ship positions.");
+          }
+        },
+      );
+    } else {
+      toast('Please select ship positions');
+    }
   };
 
   const attack = ({ i, j }: { i: number; j: number }) => {
