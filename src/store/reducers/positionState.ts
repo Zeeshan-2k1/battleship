@@ -25,9 +25,10 @@ export const positionStateSlice = createSlice({
       state,
       action: { payload: TCoodrinates; type?: string },
     ) => {
-      state.shipPositions = state.shipPositions.filter((position) => (
-          action.payload.i !== position.i && action.payload.j !== position.j
-        ));
+      state.shipPositions = state.shipPositions.filter(
+        (position) =>
+          action.payload.i !== position.i && action.payload.j !== position.j,
+      );
     },
     removeShipPositions: (
       state,
@@ -47,9 +48,10 @@ export const positionStateSlice = createSlice({
       state,
       action: { payload: TCoodrinates; type?: string },
     ) => {
-      state.attackPositions = state.attackPositions.filter((position) => (
-          action.payload.i !== position.i && action.payload.j !== position.j
-        ));
+      state.attackPositions = state.attackPositions.filter(
+        (position) =>
+          action.payload.i !== position.i && action.payload.j !== position.j,
+      );
     },
     deleteAllShipPostions: (state) => {
       state.shipPositions = [];
