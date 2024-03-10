@@ -4,7 +4,7 @@ import Wrapper from 'components/wrapper';
 
 import { EPage } from 'utils/constants';
 
-const Settings = () => {
+function Settings(): JSX.Element {
   return (
     <Wrapper selectedPage={EPage.SETTINGS} toGo="left">
       <motion.div>
@@ -13,6 +13,6 @@ const Settings = () => {
       </motion.div>
     </Wrapper>
   );
-};
+}
 
 export default Settings;

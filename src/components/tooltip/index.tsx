@@ -6,7 +6,7 @@ interface ITooltip {
   direction: 'top' | 'down' | 'right' | 'left';
   tooltipText: string;
 }
-const Tooltip: React.FC<ITooltip> = ({ children, direction, tooltipText }) => {
+function Tooltip({ children, direction, tooltipText }: ITooltip): JSX.Element {
   return (
     <div className={styles.hoverText}>
       {children}
@@ -15,6 +15,6 @@ const Tooltip: React.FC<ITooltip> = ({ children, direction, tooltipText }) => {
       </span>
     </div>
   );
-};
+}
 
 export default Tooltip;

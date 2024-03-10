@@ -6,17 +6,18 @@ interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
   customClassName?: string;
   size?: 'regular' | 'small';
 }
-const Button: React.FC<IButton> = ({
+function Button({
   children,
-  customClassName,
+  customClassName = '',
   size,
   ...props
-}) => {
+}: IButton): JSX.Element {
   if (size === 'small') {
     return (
       <button
-        {...props}
         className={`${styles.button} ${customClassName} py-2 px-4`}
+        type={props.type}
+        {...props}
       >
         {children}
       </button>
@@ -30,6 +31,6 @@ const Button: React.FC<IButton> = ({
       {children}
     </button>
   );
-};
+}
 
 export default Button;

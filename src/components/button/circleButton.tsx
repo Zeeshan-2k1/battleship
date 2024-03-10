@@ -5,11 +5,11 @@ interface ICircleButton extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   define?: string;
 }
-const CircleButton: React.FC<ICircleButton> = ({
+function CircleButton({
   children,
   define,
   ...props
-}) => {
+}: ICircleButton): JSX.Element {
   return (
     <button
       {...props}
@@ -19,6 +19,6 @@ const CircleButton: React.FC<ICircleButton> = ({
       {children}
     </button>
   );
-};
+}
 
 export default CircleButton;
