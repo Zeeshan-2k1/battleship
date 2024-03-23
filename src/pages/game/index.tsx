@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { FaInfo } from 'react-icons/fa6';
 import { IoExit } from 'react-icons/io5';
+import { GiDeathZone } from 'react-icons/gi';
 
 import GridContainer from 'components/grid';
 import Wrapper from 'components/wrapper';
@@ -74,15 +75,19 @@ function GameScreen(): JSX.Element {
                       <h4>{name}</h4>
                     </div>
                     <div className="flex gap-1">
-                      {Array(ship.health)
-                        .fill(0)
-                        .map((x, index) => (
-                          <div
-                            className="w-3 h-3 rounded-full"
-                            style={{ backgroundColor: color }}
-                            key={index}
-                          />
-                        ))}
+                      {ship.health ? (
+                        Array(ship.health)
+                          .fill(0)
+                          .map((x, index) => (
+                            <div
+                              className="w-3 h-3 rounded-full"
+                              style={{ backgroundColor: color }}
+                              key={index}
+                            />
+                          ))
+                      ) : (
+                        <GiDeathZone size={24} color={color} />
+                      )}
                     </div>
                   </div>
                 );

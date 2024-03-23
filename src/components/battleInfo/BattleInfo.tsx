@@ -23,8 +23,8 @@ function BattleInfo(): JSX.Element {
         toast('Copied to clipboard');
         setTimeout(() => setCopied(false), 3000);
       })
-      .catch((err) => {
-        console.error('Failed to copy: ', err);
+      .catch(() => {
+        toast('Failed to copy');
       });
   };
 

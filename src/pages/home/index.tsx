@@ -50,7 +50,12 @@ function Home(): JSX.Element {
   }, [socket, dispatch]);
 
   const generateRoomId = (): void => {
-    setRoomId(generate({ exactly: 2, maxLength: 4, minLength: 4 }).join('-'));
+    const stringArray = generate({
+      exactly: 2,
+      maxLength: 4,
+      minLength: 4,
+    }) as string[];
+    setRoomId(stringArray.join('-'));
   };
 
   return (
