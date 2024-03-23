@@ -88,8 +88,10 @@ export const shipStateSlice = createSlice({
         };
       }
     },
+    resetAll: () => initialState,
   },
 });
 
-export const { damage, build, destroy, reset } = shipStateSlice.actions;
+export const { damage, build, destroy, reset, resetAll } =
+  shipStateSlice.actions;
 export default shipStateSlice.reducer;

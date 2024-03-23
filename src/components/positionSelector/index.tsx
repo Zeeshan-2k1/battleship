@@ -109,6 +109,7 @@ function PositionSelector({ name }: { name: string }): JSX.Element {
 
 function PositionSelectorContainer(): JSX.Element {
   const { shipPositions } = usePositionStateSelector();
+  const { generateShipPosition } = useShipPosition();
   const dispatch = useAppDispatch();
   const { buildFleet } = useGameSocket();
 
@@ -130,6 +131,9 @@ function PositionSelectorContainer(): JSX.Element {
         </div>
       </div>
       <div className="flex items-center justify-center gap-6">
+        <Button customClassName="mt-6" onClick={generateShipPosition}>
+          Auto-Gen
+        </Button>
         <Button customClassName="mt-6" onClick={buildFleet}>
           Save
         </Button>
